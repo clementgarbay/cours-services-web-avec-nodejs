@@ -1,12 +1,13 @@
 const shortid = require('shortid');
+const displayContacts = require('./display-contacts');
 
 class ContactsManager {
   constructor(fileManager) {
     this.fileManager = fileManager;
   }
 
-  get contacts() {
-    return this.fileManager.read();
+  contacts() {
+    return Promise.resolve(this.fileManager.read());
   }
 
   add(firstName, lastName) {
@@ -30,10 +31,7 @@ class ContactsManager {
 
   display() {
     const contacts = this.fileManager.read();
-
-    contacts
-      .map(c => `${c.lastName.toUpperCase()} ${c.firstName}`)
-      .forEach(c => console.log(c));
+    displayContacts(contacts);
   }
 }
 

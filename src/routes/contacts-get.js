@@ -1,4 +1,6 @@
 module.exports = (app, contactsManager) =>
   app.get('/contacts', (req, res) => {
-    res.json(contactsManager.contacts);
+    contactsManager
+      .contacts()
+      .then(contacts => res.json(contacts));
   });
