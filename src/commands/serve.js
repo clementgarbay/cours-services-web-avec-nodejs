@@ -1,7 +1,7 @@
 const server = require('../services/server');
 
-module.exports = (commander, contactsManager) =>
+module.exports = (commander, managerInjector) =>
   commander
     .command('serve')
     .description('Starts a HTTP server')
-    .action(() => server(contactsManager));
+    .action(() => managerInjector(manager => server(manager)));

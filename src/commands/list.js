@@ -1,5 +1,5 @@
-module.exports = (commander, contactsManager) =>
+module.exports = (commander, managerInjector) =>
   commander
     .command('list')
     .description('List all contacts')
-    .action(() => contactsManager.display());
+    .action(() => managerInjector(manager => manager.display()));

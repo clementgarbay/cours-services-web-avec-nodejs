@@ -1,5 +1,5 @@
-module.exports = (commander, contactsManager) =>
+module.exports = (commander, managerInjector) =>
   commander
     .command('remove <id>')
     .description('Remove a contact its given id')
-    .action(id => contactsManager.remove(id));
+    .action(id => managerInjector(manager => manager.remove(id)));
