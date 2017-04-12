@@ -2,17 +2,19 @@ const commander = require('commander');
 
 const ContactsManager = require('./src/services/contacts-manager');
 const FileManager = require('./src/services/file-manager');
+const InMemoryManager = require('./src/services/in-memory-manager');
 const load = require('./src/services/module-loader');
 
-const commandsPath = `${__dirname}/src/commands`;
+const args = process.argv;
+const inMemory = args.indexOf('--memory') > 0;
 
-const fileManager = new FileManager(`${__dirname}/contacts.json`);
-const contactsManager = new ContactsManager(fileManager);
+const manager = (inMemory) ? new InMemoryManager() : new FileManager(`${__dirname}/contacts.json`);
+const contactsManager = new ContactsManager(manager);
 
-load(commandsPath, [commander, contactsManager], () => {
-  commander.parse(process.argv);
+load(`${__dirname}/src/commands`, [commander, contactsManager], () => {
+  commander.parse(args);
 
-  if (process.argv.length < 3) {
+  if (args.length < 3) {
     commander.help();
   }
 });
