@@ -32,6 +32,21 @@ class HttpContactsRepository {
     });
   }
 
+  update(id, firstName, lastName) {
+    return new Promise((resolve, reject) => {
+      request.put({
+        url: `${this.url}/contacts/:id`,
+        json: { firstName, lastName }
+      }, (err, res, body) => {
+        if (err) {
+          reject();
+        } else {
+          resolve(body);
+        }
+      });
+    });
+  }
+
   remove(id) {
     return new Promise((resolve, reject) => {
       request.delete(`${this.url}/contacts/${id}`, (err, res, body) => {

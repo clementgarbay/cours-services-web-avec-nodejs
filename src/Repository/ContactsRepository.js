@@ -22,6 +22,24 @@ class ContactsRepository {
     return this.database.write(contacts).then(() => Promise.resolve(id), () => Promise.reject());
   }
 
+  update(id, firstName, lastName) {
+    const contacts = this.database.read();
+
+    if (!contacts.find(c => c.id === id)) {
+      return Promise.resolve();
+    }
+
+    contacts.remove(id);
+
+    contacts.push({
+      id,
+      lastName,
+      firstName,
+    });
+
+    return this.database.write(contacts).then(() => Promise.resolve(id), () => Promise.reject());
+  }
+
   remove(id) {
     const contacts = this.database.read();
 
