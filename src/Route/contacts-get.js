@@ -1,6 +1,6 @@
-module.exports = (app, contactsManager) =>
+module.exports = (app, contactsRepository) =>
   app.get('/contacts', (req, res) => {
-    contactsManager
-      .contacts()
+    contactsRepository
+      .findAll()
       .then(contacts => res.json(contacts));
   });

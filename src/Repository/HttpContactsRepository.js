@@ -1,12 +1,11 @@
 const request = require('request');
-const displayContacts = require('./display-contacts');
 
-class HttpContactsManager {
+class HttpContactsRepository {
   constructor(url) {
     this.url = url;
   }
 
-  contacts() {
+  findAll() {
     return new Promise((resolve, reject) => {
       request(`${this.url}/contacts/`, (err, res, body) => {
         if (err) {
@@ -18,7 +17,7 @@ class HttpContactsManager {
     });
   }
 
-  add(firstName, lastName) {
+  insert(firstName, lastName) {
     return new Promise((resolve, reject) => {
       request.post({
         url: `${this.url}/contacts/`,
@@ -44,10 +43,6 @@ class HttpContactsManager {
       });
     });
   }
-
-  display() {
-    this.contacts().then(contacts => displayContacts(contacts));
-  }
 }
 
-module.exports = HttpContactsManager;
+module.exports = HttpContactsRepository;

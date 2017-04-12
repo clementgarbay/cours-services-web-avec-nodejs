@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-class FileManager {
+class FileDatabase {
   constructor(filePath) {
     this.filePath = filePath;
   }
@@ -23,4 +23,4 @@ class FileManager {
   }
 }
 
-module.exports = FileManager;
+module.exports = FileDatabase;

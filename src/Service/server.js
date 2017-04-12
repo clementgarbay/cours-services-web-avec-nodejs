@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 const load = require('./module-loader');
 
-const routesPath = `${__dirname}/../routes/`;
+const routesPath = `${__dirname}/../Route/`;
 const port = process.env.npm_package_config_port;
 
 const app = express();

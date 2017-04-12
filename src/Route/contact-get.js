@@ -1,9 +1,9 @@
-module.exports = (app, contactsManager) =>
+module.exports = (app, contactsRepository) =>
   app.get('/contacts/:id', (req, res) => {
     const id = req.params.id;
 
-    contactsManager
-      .contacts()
+    contactsRepository
+      .findAll()
       .then((contacts) => {
         const contact = contacts.find(c => c.id === id);
 
