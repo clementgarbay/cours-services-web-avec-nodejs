@@ -20,7 +20,7 @@
   "engineStrict": true,
   "main": "app",
   "scripts": {
-    "start": "node --harmony app.js",
+    "start": "node app.js",
     "lint": "eslint *.js",
     "lint:fix": "eslint --fix *.js tests/*.js",
     "mocha": "mocha --timeout 10000",
