@@ -1,3 +1,5 @@
+const shortid = require('shortid');
+
 class ContactsManager {
   constructor(fileManager) {
     this.fileManager = fileManager;
@@ -7,8 +9,9 @@ class ContactsManager {
     return this.fileManager.read();
   }
 
-  add(id, firstName, lastName) {
+  add(firstName, lastName) {
     const contacts = this.fileManager.read();
+    const id = shortid.generate();
 
     contacts.push({
       id,
@@ -16,17 +19,21 @@ class ContactsManager {
       firstName,
     });
 
-    this.fileManager.write(contacts);
-
-    return this;
+    return this.fileManager.write(contacts).then(() => Promise.resolve(id), () => Promise.reject());
   }
 
   remove(id) {
     const contacts = this.fileManager.read();
 
-    this.fileManager.write(contacts.filter(c => c.id !== id));
+    return this.fileManager.write(contacts.filter(c => c.id !== id));
+  }
 
-    return this;
+  display() {
+    const contacts = this.fileManager.read();
+
+    contacts
+      .map(c => `${c.lastName.toUpperCase()} ${c.firstName}`)
+      .forEach(c => console.log(c));
   }
 }
 

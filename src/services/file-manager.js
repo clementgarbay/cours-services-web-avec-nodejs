@@ -6,13 +6,19 @@ class FileManager {
   }
 
   read() {
+    delete require.cache[require.resolve(this.filePath)]; // TODO: to review!
     return require(this.filePath);
   }
 
   write(data) {
-    return fs.writeFile(this.filePath, JSON.stringify(data, null, 4), (err) => {
-      if (err) throw err;
-      console.log('Saved!');
+    return new Promise((resolve, reject) => {
+      fs.writeFile(this.filePath, JSON.stringify(data, null, 4), (err) => {
+        if (err) {
+          reject();
+        } else {
+          resolve();
+        }
+      });
     });
   }
 }

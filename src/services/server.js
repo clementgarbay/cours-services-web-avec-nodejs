@@ -10,9 +10,9 @@ const app = express();
 
 app.use(bodyParser.json());
 
-load(routesPath, [app]);
+module.exports = (contactsManager) => {
+  load(routesPath, [app, contactsManager]);
 
-module.exports = () => {
   app.listen(port, () => {
     console.log(`port: ${port}`);
   });

@@ -33,7 +33,7 @@ describe('app server at step 4', () => {
     });
 
     it('responds 200 OK', () => {
-      expect(response.statusCode).to.equal(200);
+      expect(response.statusCode).to.equal(204);
     });
   });
 
